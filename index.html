@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Flights - Comparateur de billets d'avion et vols pas chers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #202124;
+        }
+        .search-form {
+            background: #fff;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+        }
+        .destination-card {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .destination-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+        }
+        .destination-card span {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header Navigation -->
+    <header class="border-b border-gray-200">
+        <nav class="container mx-auto px-4 py-2 flex items-center justify-between max-w-screen-2xl">
+            <div class="flex items-center space-x-8">
+                <button class="p-2 hover:bg-gray-100 rounded-full">
+                    <span class="block w-5 h-0.5 bg-gray-600 mb-1"></span>
+                    <span class="block w-5 h-0.5 bg-gray-600 mb-1"></span>
+                    <span class="block w-5 h-0.5 bg-gray-600"></span>
+                </button>
+                <div class="flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-black transition-colors">Voyager</a>
+                    <a href="#" class="text-gray-700 hover:text-black transition-colors">Explorer</a>
+                    <a href="#" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-2">Vols</a>
+                    <a href="#" class="text-gray-700 hover:text-black transition-colors">Hôtels</a>
+                    <a href="#" class="text-gray-700 hover:text-black transition-colors">Locations de vacances</a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-blue-600 font-medium px-6 py-2 rounded-md hover:bg-blue-50 transition-colors">Connexion</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-medium text-center mb-8">Vols</h1>
+
+        <!-- Flight Search Form -->
+        <div class="max-w-4xl mx-auto search-form p-6 mb-12 mt-4">
+            <div class="flex space-x-4 mb-6">
+                <button class="px-4 py-2 text-blue-600 bg-blue-50 rounded-full font-medium hover:bg-blue-100 transition-colors">Aller-retour</button>
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-full transition-colors">Aller simple</button>
+                <button class="px-4 py-2 text-gray-600 hover:bg-gray-50 rounded-full transition-colors">Multi-destination</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="relative">
+                    <input type="text" placeholder="D'où partez-vous ?" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-400 transition-colors">
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="relative">
+                    <input type="text" placeholder="Où allez-vous ?" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-400 transition-colors">
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="relative">
+                    <input type="date" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-400 transition-colors">
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="relative">
+                    <input type="date" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent hover:border-gray-400 transition-colors">
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    Rechercher
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="mb-12">
+            <h2 class="text-xl font-medium mb-4">Trouvez des vols à petit prix au départ de France vers n'importe quelle destination</h2>
+            <div class="flex flex-wrap gap-3">
+                <a href="#" class="px-4 py-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">Paris</a>
+                <a href="#" class="px-4 py-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">Nice</a>
+                <a href="#" class="px-4 py-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">Lyon</a>
+                <a href="#" class="px-4 py-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">Marseille</a>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <section class="mb-16">
+            <h2 class="text-xl font-medium mb-8">Des outils utiles pour vous aider à trouver les meilleures offres</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    <h3 class="font-medium mb-3">Trouvez les jours les moins chers</h3>
+                    <p class="text-gray-600">Le calendrier et le graphique des prix permettent d'identifier facilement les meilleures offres de vols</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    <h3 class="font-medium mb-3">Profitez d'une meilleure visibilité grâce aux tendances des prix</h3>
+                    <p class="text-gray-600">L'historique des prix et les données sur les tendances vous indiquent quand réserver</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                    <h3 class="font-medium mb-3">Suivez les prix pour un voyage</h3>
+                    <p class="text-gray-600">Suivez les changements de prix d'un itinéraire ou d'un vol et recevez une notification en cas de baisse</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Destinations -->
+        <section class="mb-12">
+            <h2 class="text-xl font-medium mb-6">Destinations populaires au départ de France</h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?london')">
+                    <span class="text-white font-medium">Londres</span>
+                </a>
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?tokyo')">
+                    <span class="text-white font-medium">Tokyo</span>
+                </a>
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?milan')">
+                    <span class="text-white font-medium">Milan</span>
+                </a>
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?new-york')">
+                    <span class="text-white font-medium">New York</span>
+                </a>
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?rome')">
+                    <span class="text-white font-medium">Rome</span>
+                </a>
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?barcelona')">
+                    <span class="text-white font-medium">Barcelone</span>
+                </a>
+                <a href="#" class="destination-card block aspect-square rounded-lg p-4 hover:opacity-90 transition-opacity" style="background-image: url('https://source.unsplash.com/400x400/?amsterdam')">
+                    <span class="text-white font-medium">Amsterdam</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mb-16">
+            <h2 class="text-xl font-medium mb-8">Questions fréquentes</h2>
+            <div class="space-y-4">
+                <div class="border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button class="w-full text-left p-4 font-medium flex justify-between items-center">
+                        <span>Comment trouver des offres de vols de dernière minute ?</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button class="w-full text-left p-4 font-medium flex justify-between items-center">
+                        <span>Comment trouver des vols à petit prix pour le week-end ?</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button class="w-full text-left p-4 font-medium flex justify-between items-center">
+                        <span>Comment trouver des offres de vols si mes dates sont flexibles ?</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button class="w-full text-left p-4 font-medium flex justify-between items-center">
+                        <span>Comment trouver des vols à petit prix vers n'importe quelle destination ?</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button class="w-full text-left p-4 font-medium flex justify-between items-center">
+                        <span>Comment recevoir des alertes sur les vols pour mon voyage ?</span>
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Routes -->
+        <section class="mb-12">
+            <h2 class="text-xl font-medium mb-6">Trouvez des vols pas chers pour des itinéraires populaires</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <a href="#" class="text-blue-600 hover:underline">Vols de New York à Londres</a>
+                <a href="#" class="text-blue-600 hover:underline">Vols de New York à Paris</a>
+                <a href="#" class="text-blue-600 hover:underline">Vols de Londres à Paris</a>
+                <a href="#" class="text-blue-600 hover:underline">Vols de New York à Rome</a>
+                <a href="#" class="text-blue-600 hover:underline">Vols de Montréal à Paris</a>
+                <a href="#" class="text-blue-600 hover:underline">Vols de Londres à Milan</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t mt-16 bg-gray-50">
+        <div class="container mx-auto px-4 py-12">
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="px-4 py-2 bg-white rounded-full hover:bg-gray-100 transition-colors border">Langue : Français</button>
+                <button class="px-4 py-2 bg-white rounded-full hover:bg-gray-100 transition-colors border">Emplacement : France</button>
+                <button class="px-4 py-2 bg-white rounded-full hover:bg-gray-100 transition-colors border">Devise : EUR</button>
+            </div>
+            <div class="text-center text-sm text-gray-600 max-w-3xl mx-auto">
+                <p class="mb-6">Les devises affichées peuvent être différentes de celles utilisées pour l'achat de vols. Les tarifs correspondent aux prix finaux et incluent l'ensemble des taxes et frais, y compris ceux associés au mode de paiement le moins onéreux et le plus utilisé.</p>
+                <div class="flex flex-wrap justify-center gap-6 mb-6">
+                    <a href="#" class="hover:text-gray-900 transition-colors">À propos</a>
+                    <a href="#" class="hover:text-gray-900 transition-colors">Confidentialité</a>
+                    <a href="#" class="hover:text-gray-900 transition-colors">Conditions d'utilisation</a>
+                    <a href="#" class="hover:text-gray-900 transition-colors">Participez à des enquêtes utilisateur</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
